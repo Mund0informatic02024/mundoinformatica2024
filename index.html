@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información sobre Informática</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8; /* Fondo más claro */
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+header {
+    background-color: #4CAF50; /* Verde más intenso */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+h1 {
+    margin: 0;
+    font-size: 2em; /* Tamaño de fuente más grande */
+}
+
+#user-info {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaciado entre los botones */
+    margin-bottom: 20px; /* Espaciado debajo del contenedor */
+}
+
+.button {
+    background-color: #4CAF50; /* Color de fondo de los botones */
+    color: white;
+    padding: 12px 24px; /* Aumento de padding para mayor área clickeable */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Tamaño de fuente más grande */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+}
+
+.button:hover {
+    background-color: #45a049; /* Color al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de levantamiento */
+}
+
+section {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    padding: 20px;
+    transition: box-shadow 0.3s;
+}
+
+section:hover {
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2); /* Efecto de sombra en hover */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Bordes redondeados para las imágenes */
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #4CAF50; /* Mismo verde que el header */
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    border-radius: 10px; /* Bordes redondeados */
+    margin-top: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo más oscuro */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+textarea {
+    width: 100%;
+    padding: 12px; /* Aumento de padding */
+    margin: 10px 0;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50; /* Mismo color que los botones */
+    color: white;
+    padding: 12px; /* Aumento de padding */
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+}
+
+input[type=submit]:hover {
+    background-color: #45a049; /* Color al pasar el mouse */
+    transform: translateY(-2px); /* Efecto de levantamiento */
+}
+
+/* Estilos para el formulario de comentarios */
+#commentSection {
+    margin-top: 20px;
+}
+
+.comment {
+    background-color: #f8f9fa; /* Fondo claro para comentarios */
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border-left: 5px solid #4CAF50; /* Borde izquierdo para destacar */
+}
+
+.comment-user {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-text {
+    margin-top: 5px;
+    line-height: 1.5;
+}
+
+/* Estilo para el mensaje de inicio de sesión */
+#loginMessage {
+    font-style: italic;
+    color: #6c757d;
+    margin-top: 10px;
+}
+
+/* Estilos para el sistema de valoración */
+.rating {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 1.5em;
+    color: lightgray; /* Color base de estrellas */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.rating input:checked~label,
+.rating label:hover,
+.rating label:hover~label {
+    color: gold; /* Color dorado al seleccionar */
+}
+
+/* Ajustes para responsividad */
+@media (max-width: 600px) {
+    .button-container {
+        flex-direction: column; /* Apilar botones en móviles */
+    }
+
+    .button {
+        width: 100%; /* Botones ocupan todo el ancho en móviles */
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Contenedor para los botones de registro e inicio de sesión -->
+    <div class="button-container">
+        <button class="button" id="registerBtn">Registrarse</button>
+        <button class="button" id="loginBtn">Iniciar Sesión</button>
+    </div>
+
+    <!-- Información del usuario después de iniciar sesión -->
+    <div id="user-info">
+        <span id="usernameDisplay"></span>
+        <button class="button" id="logoutBtn">Cerrar Sesión</button>
+    </div>
+
+    <!-- Modal de registro -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRegisterModal">&times;</span>
+            <h2>Registro de Usuario</h2>
+            <form id="registerForm">
+                <label for="regUsername">Usuario</label>
+                <input type="text" id="regUsername" name="regUsername" placeholder="Tu nombre de usuario" required>
+
+                <label for="regEmail">Correo Electrónico</label>
+                <input type="email" id="regEmail" name="regEmail" placeholder="Tu correo electrónico" required>
+
+                <label for="regPassword">Contraseña</label>
+                <input type="password" id="regPassword" name="regPassword" placeholder="Tu contraseña" required>
+
+                <input type="submit" value="Registrarse">
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de inicio de sesión -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLoginModal">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <label for="loginUsername">Usuario</label>
+                <input type="text" id="loginUsername" name="loginUsername" placeholder="Tu nombre de usuario" required>
+
+                <label for="loginPassword">Contraseña</label>
+                <input type="password" id="loginPassword" name="loginPassword" placeholder="Tu contraseña" required>
+
+                <input type="submit" value="Iniciar Sesión">
+            </form>
+        </div>
+    </div>
+
+    <!-- Header de la página -->
+    <header>
+        <h1>Bienvenido al Mundo de la Informática</h1>
+    </header>
+
+    <section>
+        <h2>¿QUÉ ES LA INFORMÁTICA?</h2>
+        <p>La informática es la ciencia que se encarga del tratamiento automático de la información mediante sistemas computacionales. Abarca tanto el hardware como el software y su aplicación en diversas áreas, como la comunicación, la educación, la medicina, y más.</p>
+
+        <center><img src="INFO.webp" alt="Imagen sobre informática"></center>
+
+        <h2>CONFIGURACIONES BÁSICAS</h2>
+        <ul>
+            <li><a href="idioma y region.HTML"><strong>¿Como configuración del idioma y la región? </strong> </a></li>
+            <li><a href="impresora.html"><strong>¿Como conectar una impresora a una computadora?</strong></a></li>
+            <li><a href="bluethoo.html"><strong> ¿Como conectar su computadora con un dispositivo Bluetooth?</strong> </a></li>
+            <li><a href="modo multitarea.html"><strong>¿Como configurar el modo multitarea?</strong> </a></li>
+            <li><a href="cuenta.html"><strong>¿Cómo agregar un usuario en mi cuenta?</strong> </a></li>
+            <li><a href="desintalar.html"><strong>¿Cómo desinstalar una aplicación?</strong> </a></li>
+        </ul>
+    </section>
+
+    <!-- Sección de comentarios -->
+    <section id="commentSection">
+        <h2>Comentarios</h2>
+        <div id="commentDisplay"></div>
+
+        <!-- Formulario de comentarios (solo para usuarios logueados) -->
+        <form id="commentForm">
+            <label for="comment">Escribe tu comentario:</label>
+            <textarea id="comment" name="comment" placeholder="Tu comentario..." required></textarea>
+
+            <!-- Sistema de valoración de 5 estrellas -->
+            <label>Valoración:</label>
+            <div class="rating">
+                <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+                <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+                <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+                <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+                <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+            </div>
+
+            <input type="submit" value="Comentar">
+        </form>
+
+        <p id="loginMessage">Debes iniciar sesión para comentar.</p>
+    </section>
+
+    <!-- Footer original -->
+    <footer>
+        <p>&copy; 2024 Mundo de la Informática - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Manejo de almacenamiento de usuarios en localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        let loggedInUser = JSON.parse(localStorage.getItem('loggedInUser')) || null;
+
+        // Manejo de modal de registro
+        const registerBtn = document.getElementById('registerBtn');
+        const registerModal = document.getElementById('registerModal');
+        const closeRegisterModal = document.getElementById('closeRegisterModal');
+        const registerForm = document.getElementById('registerForm');
+
+        registerBtn.onclick = () => {
+            registerModal.style.display = 'block';
+        };
+        closeRegisterModal.onclick = () => {
+            registerModal.style.display = 'none';
+        };
+
+        registerForm.onsubmit = (e) => {
+            e.preventDefault();
+            const regUsername = document.getElementById('regUsername').value;
+            const regEmail = document.getElementById('regEmail').value;
+            const regPassword = document.getElementById('regPassword').value;
+
+            const userExists = users.find(user => user.username === regUsername);
+            if (userExists) {
+                alert('El usuario ya existe');
+            } else {
+                users.push({ username: regUsername, email: regEmail, password: regPassword });
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Registro exitoso');
+                registerModal.style.display = 'none';
+            }
+        };
+
+        // Manejo de modal de inicio de sesión
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const loginForm = document.getElementById('loginForm');
+
+        loginBtn.onclick = () => {
+            loginModal.style.display = 'block';
+        };
+        closeLoginModal.onclick = () => {
+            loginModal.style.display = 'none';
+        };
+
+        loginForm.onsubmit = (e) => {
+            e.preventDefault();
+            const loginUsername = document.getElementById('loginUsername').value;
+            const loginPassword = document.getElementById('loginPassword').value;
+
+            const user = users.find(user => user.username === loginUsername && user.password === loginPassword);
+            if (user) {
+                loggedInUser = user;
+                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                updateUI();
+                alert('Inicio de sesión exitoso');
+                loginModal.style.display = 'none';
+            } else {
+                alert('Usuario o contraseña incorrectos');
+            }
+        };
+
+        // Cerrar sesión
+        const logoutBtn = document.getElementById('logoutBtn');
+        logoutBtn.onclick = () => {
+            loggedInUser = null;
+            localStorage.removeItem('loggedInUser');
+            updateUI();
+        };
+
+        // Actualizar interfaz de usuario al iniciar sesión
+        function updateUI() {
+            const userInfo = document.getElementById('user-info');
+            const commentForm = document.getElementById('commentForm');
+            const loginMessage = document.getElementById('loginMessage');
+            if (loggedInUser) {
+                document.getElementById('usernameDisplay').textContent = `Hola, ${loggedInUser.username}`;
+                userInfo.style.display = 'block';
+                registerBtn.style.display = 'none';
+                loginBtn.style.display = 'none';
+                commentForm.style.display = 'block'; // Mostrar formulario si el usuario está logueado
+                loginMessage.style.display = 'none';
+            } else {
+                userInfo.style.display = 'none';
+                registerBtn.style.display = 'inline-block';
+                loginBtn.style.display = 'inline-block';
+                commentForm.style.display = 'none'; // Ocultar formulario si no hay sesión
+                loginMessage.style.display = 'block'; // Mostrar mensaje de inicio de sesión
+            }
+        }
+        updateUI();
+
+        // Manejo de comentarios
+        const commentForm = document.getElementById('commentForm');
+        const commentDisplay = document.getElementById('commentDisplay');
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+        
+
+        commentForm.onsubmit = (e) => {
+            e.preventDefault();
+            const commentText = document.getElementById('comment').value;
+            const rating = document.querySelector('input[name="rating"]:checked');
+            if (loggedInUser) {
+                if (rating) {
+                    const newComment = {
+                        user: loggedInUser.username,
+                        text: commentText,
+                        rating: rating.value
+                    };
+                    comments.push(newComment);
+                    localStorage.setItem('comments', JSON.stringify(comments));
+                    displayComments();
+                    commentForm.reset();
+                } else {
+                    alert('Por favor, selecciona una valoración.');
+                }
+            } else {
+                alert('Debes iniciar sesión para comentar');
+            }
+        };
+
+        function displayComments() {
+            commentDisplay.innerHTML = '';
+            comments.forEach(comment => {
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+                commentDiv.innerHTML = `
+                    <div class="comment-user">${comment.user}</div>
+                    <div class="comment-text">${comment.text}</div>
+                    <div class="comment-rating">${renderStars(comment.rating)}</div>
+                `;
+                commentDisplay.appendChild(commentDiv);
+            });
+        }
+
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '★';
+                } else {
+                    stars += '☆';
+                }
+            }
+            return stars;
+        }
+
+        displayComments();
+        
+    </script>
+</body>
+
+</html>
